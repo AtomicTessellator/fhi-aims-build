@@ -1,5 +1,5 @@
 {
-	"name": "Existing Dockerfile with GPU",
+	"name": "FHI-aims build container",
 	"build": {
 		"context": "..",
 		"dockerfile": "../Dockerfile"
@@ -11,11 +11,8 @@
 		"--gpus",
 		"all"
 	],
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"ms-vscode.cpptools"
-			]
-		}
-	}
+	"mounts": [
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,readonly"
+	],
+	"remoteUser": "vscode"
 }
