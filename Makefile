@@ -14,6 +14,12 @@ check:
 		exit 1; \
 	fi
 
+	# Check to see if docker is installed
+	if ! docker info > /dev/null 2>&1; then \
+		echo "Docker is not installed"; \
+		exit 1; \
+	fi
+
 # CPU build target
 cpu: clean check
 	docker build -t fhiaims-builder .
