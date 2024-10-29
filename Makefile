@@ -28,7 +28,7 @@ cpu: clean check
 		-v $(PWD):/workspaces/fhi-aims-build \
 		--name fhiaims_build \
 		fhiaims-builder \
-		/bin/bash -c "/workspaces/fhi-aims-build/build.sh"
+		/bin/bash -c "/workspaces/fhi-aims-build/buildscript"
 	docker rm fhiaims_build
 
 # GPU build target
@@ -39,5 +39,5 @@ gpu: clean check
 		-v $(PWD):/workspaces/fhi-aims-build \
 		--name fhiaims_build \
 		fhiaims-builder \
-		/bin/bash -c "/workspaces/fhi-aims-build/build.sh"
+		/bin/bash -c "/workspaces/fhi-aims-build/buildscript"
 	docker rm fhiaims_build
