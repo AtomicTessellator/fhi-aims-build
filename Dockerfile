@@ -57,5 +57,3 @@ FROM auth_container as final
 
 # Set working directory
 WORKDIR /workspaces/fhi-aims-build
-
-CMD ["/workspaces/fhi-aims-build/build.sh"]
