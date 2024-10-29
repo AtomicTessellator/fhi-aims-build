@@ -42,36 +42,20 @@ ENV CUDA_HOME="/usr/local/cuda" \
 # Auth container
 FROM base as auth_container
 
-# Create a non-root user
-ARG USERNAME=vscode
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
-
-RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    && apt-get update \
-    && apt-get install -y sudo \
-    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME
-
 # Install SSH client
 RUN apt-get install -y openssh-client
 
-# Set up SSH directory for the non-root user
-RUN mkdir -p /home/$USERNAME/.ssh \
-    && chown -R $USERNAME:$USERNAME /home/$USERNAME/.ssh \
-    && chmod 700 /home/$USERNAME/.ssh
-
-# Switch to the non-root user
-USER $USERNAME
+# Set up SSH directory
+RUN mkdir -p /root/.ssh \
+    && chmod 700 /root/.ssh
 
 # Set up Git to use SSH
 RUN git config --global core.sshCommand "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
-
 # Final stage
 FROM auth_container as final
 
-RUN git clone git@aims-git.rz-berlin.mpg.de:aims/FHIaims.git
+# Set working directory
+WORKDIR /workspaces/fhi-aims-build
 
-CMD ["bash"]
+CMD ["/workspaces/fhi-aims-build/build.sh"]

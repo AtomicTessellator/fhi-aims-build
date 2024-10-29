@@ -1,43 +1,33 @@
-# fhi-aims-build
+# FHI-aims build
 
-### How to build:
-- Build the docker container (open in dev-containers in vscode)
+This is a Docker container for building FHI-aims, it is used to build the FHI-aims binary in a consistent environment.
 
-#### Get FHI aims source code and decompress
-(e.g. to fhi-aims.240507)
+### Step 1 - Preparation:
+You must be able to clone from the FHI-aims git repository using SSH.
 
-#### 3 - Make build dir
-```
-> cd fhi-aims.240507
-> rm -rf build
-> mkdir build && cd build
-```
+If you do not have access to the FHI-aims repository, [contact the FHI-aims developers](https://fhi-aims.org/get-the-code-menu/get-the-code)
 
-#### Copy the CPU or GPU makefile to the current directory
-```
-# initial_cache.cmake.cpu           CPU build
-# initial_cache.cmake.gpu_all       GPU build (all gpu archs - longer build, larger binary, less performant runtime)
-# initial_cache.cmake.gpu_sm86      GPU build for sm86 (e.g. RTX 3060) specific arch only
-# Feel free to add more GPU specific builds!
+If this command works:
+
+```bash
+git clone git@aims-git.rz-berlin.mpg.de:aims/FHIaims.git
 ```
 
-#### Copy the build file we want
-```
-> cp ../../initial_cache.cmake.gpu_all .
-```
-#### Activate the Intel ONEAPI compilers
+Then you are ready to build, proceed to the next step.
 
+### Step 2 - GPU version
+
+```bash
+make gpu
 ```
-> source /opt/intel/oneapi/setvars.sh
+
+### Step 2 - CPU version
+
+```bash
+make cpu
 ```
-#### Set your CUDA vars
-```
-> export CUDA_HOME=/usr/local/cuda
-> export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64
-> export PATH=$PATH:$CUDA_HOME/bin
-```
-#### Run cmake and build the binary
-```
-> cmake -C initial_cache.cmake.gpu ..
-> make -j 12
-```
+
+### Once the build is complete
+
+The binary will be in the `FHIaims/build` directory.
+

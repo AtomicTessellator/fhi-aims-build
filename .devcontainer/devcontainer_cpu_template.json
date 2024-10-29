@@ -4,13 +4,6 @@
 		"context": "..",
 		"dockerfile": "../Dockerfile"
 	},
-	"hostRequirements": {
-		"gpu": true
-	},
-	"runArgs": [
-		"--gpus",
-		"all"
-	],
 	"mounts": [
 		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/root/.ssh,type=bind,readonly"
 	]
