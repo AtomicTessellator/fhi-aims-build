@@ -1,0 +1,16 @@
+FROM nvidia/cuda:12.4.1-runtime-ubuntu22.04 as nvidia-base
+
+RUN apt update
+RUN apt install -y gpg-agent wget git cmake python3 python3-pip vim git
+
+# Intel MKL
+RUN wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
+RUN echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | tee /etc/apt/sources.list.d/oneAPI.list
+RUN apt update
+RUN apt install -y intel-oneapi-mkl intel-oneapi-mkl-devel intel-oneapi-mpi intel-hpckit libopenmpi-dev
+
+# COPY YOUR BINARY HERE
+# COPY bin/aims.240920.scalapack.mpi.x /usr/local/bin && chmod +x /usr/local/bin/aims.240920.scalapack.mpi.x
+
+# Launch
+CMD ["bash"]

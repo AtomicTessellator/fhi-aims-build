@@ -2,6 +2,8 @@
 
 This is a Docker container for building FHI-aims, it is used to build the FHI-aims binary in a consistent environment.
 
+## 📋 How to build
+
 ### Step 1 - Preparation:
 You must be able to clone from the FHI-aims git repository using SSH.
 
@@ -31,7 +33,11 @@ make cpu
 
 The binary will be in the `FHIaims/build` directory.
 
-## Common issues
+## 🏃 How to run
+
+You need to have the Intel MKL library installed to run FHI-aims, for convenience, you can use the `Dockerfile_RUNTIME` file in this repo to run FHI-aims if you do not want to install the Intel MKL library on your local machine.
+
+## 💥 Common issues
 
 ### SSH key not found
 
@@ -46,4 +52,4 @@ You can either:
 
 If you get an error about the GPU not being found, it is likely because your system does not support the NVIDIA Container Toolkit.
 
-Make sure you have the NVIDIA Container Toolkit installed and configured correctly.
+Make sure you have the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) installed and configured correctly.
