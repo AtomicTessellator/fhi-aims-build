@@ -31,3 +31,19 @@ make cpu
 
 The binary will be in the `FHIaims/build` directory.
 
+## Common issues
+
+### SSH key not found
+
+If you get an error about the SSH key not being found, it is likely because the key is not in the default location (`~/.ssh/id_ed25519` or `~/.ssh/id_rsa`).
+
+You can either:
+
+1. Add the key to the default location
+2. Modify the Makefile to use the location of your key
+
+### Errors during GPU build
+
+If you get an error about the GPU not being found, it is likely because your system does not support the NVIDIA Container Toolkit.
+
+Make sure you have the NVIDIA Container Toolkit installed and configured correctly.
